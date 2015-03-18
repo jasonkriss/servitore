@@ -3,7 +3,7 @@ module Servitore
     extend ActiveSupport::Concern
 
     included do
-      attr_reader :params
+      attr_reader :_params
 
       class << self
         alias_method :_new, :new
@@ -15,7 +15,7 @@ module Servitore
     end
 
     def initialize(params)
-      @params = params || {}
+      @_params = params || {}
     end
 
     def call
@@ -30,7 +30,7 @@ module Servitore
       def param_reader(*names)
         names.each do |name|
           define_method(name) do
-            params[name]
+            _params[name]
           end
         end
       end
