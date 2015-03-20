@@ -6,7 +6,7 @@ Bare-boned service objects.
 
 Add this line to your application's Gemfile:
 
-    gem 'servitore'
+    gem "servitore"
 
 And then execute:
 
@@ -19,18 +19,19 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-class Registration
+class CreatePost
   include Servitore::Service
 
-  def call
-    User.create!(user_params)
-  end
+  param_reader :user, :params
 
-  private
-  def user_params
-    params.slice(:name, :email, :password)
+  def call
+    user.posts.create!(params)
   end
 end
+```
+
+```ruby
+CreatePost.call(user: current_user, params: post_params)
 ```
 
 ## Contributing
